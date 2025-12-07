@@ -28,5 +28,8 @@ build
 out
 coverage
 
+# Prisma e código gerado (não formatar)
+backend/src/generated/**
+
 # Cache
 .astro

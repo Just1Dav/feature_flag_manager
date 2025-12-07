@@ -1,7 +1,6 @@
 # Geral
 node_modules/
 
-
 # Logs
 npm-debug.log*
 logs
@@ -29,6 +28,9 @@ dist/
 build/
 out/
 coverage/
+
+# Prisma gerado
+backend/src/generated/
 
 # Cache
 .astro/
