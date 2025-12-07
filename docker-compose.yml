@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: feature_flags_db
+    ports:
+      - '5431:5432' # Mapeamento de porta para o postgres utilizar a porta 5431 na máquina host (caso a 5432 já esteja em uso)
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: adminpassword
+      POSTGRES_DB: feature_flags_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # Persistência de dados
+    networks:
+      - feature_flags_network
+
+volumes:
+  postgres_data:
+
+networks:
+  feature_flags_network:
+    driver: bridge

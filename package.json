@@ -13,7 +13,10 @@
   "scripts": {
     "test": "npm run test --workspaces",
     "lint": "npm run lint --workspaces",
-    "lefthook:sync": "npx lefthook install"
+    "lefthook:sync": "npx lefthook install",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.2.0",
