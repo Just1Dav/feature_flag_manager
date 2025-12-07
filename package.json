@@ -1,0 +1,26 @@
+{
+  "name": "feature_flag_manager",
+  "version": "1.0.0",
+  "description": "Gerenciador de Feature Flags",
+  "license": "ISC",
+  "author": "Davi Oliveira",
+  "type": "module",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "test": "npm run test --workspaces",
+    "lint": "npm run lint --workspaces",
+    "lefthook:sync": "npx lefthook install"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^20.2.0",
+    "@commitlint/config-conventional": "^20.2.0",
+    "lefthook": "^2.0.8",
+    "prettier": "^3.7.4",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-tailwindcss": "^0.7.2"
+  }
+}

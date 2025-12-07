@@ -1,0 +1,32 @@
+# Geral
+node_modules
+
+# Lockfile
+package-lock.json
+
+# Logs
+npm-debug.log*
+logs
+*.log
+
+# OS
+.DS_Store
+
+# Editores
+.idea
+.vscode
+*.sublime-project
+*.sublime-workspace
+
+# Variáveis de Ambiente
+.env
+.env.*
+
+# Builds e Distribuição (Backend & Frontend)
+dist
+build
+out
+coverage
+
+# Cache
+.astro
