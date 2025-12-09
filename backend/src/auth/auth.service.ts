@@ -7,15 +7,16 @@ import { ConflictException, Injectable } from '@nestjs/common';
 export class AuthService {
   constructor(private usersService: UsersService) {}
 
-  async register(createUserDto: CreateUserDto) {
-    const { email, password, name } = createUserDto;
+  async register(user: CreateUserDto) {
+    const { email, password, name } = user;
 
     const userExists = await this.usersService.findByEmail(email);
     if (userExists) {
       throw new ConflictException('O e-mail já está em uso.');
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const saltOrRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltOrRounds);
 
     const newUser = await this.usersService.create({
       email,

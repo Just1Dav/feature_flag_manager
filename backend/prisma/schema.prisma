@@ -15,7 +15,7 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
+  id        Int   @default(autoincrement()) @id
   email     String   @unique
   name      String
   password  String
@@ -28,13 +28,13 @@ model User {
 }
 
 model Project {
-  id          String   @id @default(uuid())
+  id          Int   @default(autoincrement()) @id
   name        String
   description String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  userId      String
+  userId      Int
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   environments Environment[]
@@ -45,13 +45,13 @@ model Project {
 }
 
 model Environment {
-  id          String   @id @default(uuid())
+  id          Int   @default(autoincrement()) @id
   name        String
   description String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  projectId   String
+  projectId   Int
   project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   featureFlags FeatureFlag[]
@@ -62,14 +62,14 @@ model Environment {
 }
 
 model FeatureFlag {
-  id          String   @id @default(uuid())
+  id          Int   @default(autoincrement()) @id
   name        String
   description String?
   isActive    Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  environmentId String
+  environmentId Int
   environment   Environment @relation(fields: [environmentId], references: [id], onDelete: Cascade)
 
   // Garantindo que dentro de um ambiente, não existam dois feature flags com o mesmo nome.
