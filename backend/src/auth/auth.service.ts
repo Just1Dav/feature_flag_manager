@@ -1,16 +1,28 @@
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { CreateUserDto } from '@/users/dto/create-user.dto';
+import { JwtService } from '@nestjs/jwt';
+import { SigninDto, SigninResponseDto } from './dto/signin.dto';
+import { SignupDto } from './dto/signup.dto';
+import { UserEntity } from '@/users/entities/user.entity';
 import { UsersService } from '@/users/users.service';
-import { ConflictException, Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AuthService {
-  constructor(private usersService: UsersService) {}
+  constructor(
+    private usersService: UsersService,
+    private jwtService: JwtService,
+  ) {}
 
-  async register(user: CreateUserDto) {
-    const { email, password, name } = user;
+  async signup(signupDto: SignupDto): Promise<UserEntity> {
+    const { email, password, name } = signupDto;
 
     const userExists = await this.usersService.findByEmail(email);
+
     if (userExists) {
       throw new ConflictException('O e-mail já está em uso.');
     }
@@ -24,7 +36,27 @@ export class AuthService {
       password: hashedPassword,
     });
 
-    const { password: _, ...userWithoutPassword } = newUser;
-    return userWithoutPassword;
+    return new UserEntity(newUser);
+  }
+
+  async signin(signinDto: SigninDto): Promise<SigninResponseDto> {
+    const user = await this.usersService.findByEmail(signinDto.email);
+
+    if (!user) throw new NotFoundException('Usuário não encontrado.');
+
+    const passwordMatch = await bcrypt.compare(
+      signinDto.password,
+      user.password,
+    );
+
+    if (!passwordMatch) {
+      throw new UnauthorizedException('Credenciais inválidas.');
+    }
+
+    const payload = { sub: user.id };
+
+    return {
+      access_token: await this.jwtService.signAsync(payload),
+    };
   }
 }
