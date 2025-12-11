@@ -37,9 +37,9 @@ export class EnvironmentsService {
     return envs.map((env) => new EnviromentEntity(env));
   }
 
-  async findOne(envId: number): Promise<EnviromentEntity> {
+  async findOne(environmentId: number): Promise<EnviromentEntity> {
     const env = await this.prisma.environment.findUnique({
-      where: { id: envId },
+      where: { id: environmentId },
     });
 
     if (!env) {
@@ -50,31 +50,31 @@ export class EnvironmentsService {
   }
 
   async update(
-    envId: number,
+    environmentId: number,
     updateEnvDto: UpdateEnvDto,
   ): Promise<EnviromentEntity> {
-    const currentEnv = await this.findOne(envId);
+    const currentEnv = await this.findOne(environmentId);
 
     if (updateEnvDto.name && updateEnvDto.name !== currentEnv.name) {
       await this.validateUniqueEnvName(currentEnv.projectId, updateEnvDto.name);
     }
 
     const env = await this.prisma.environment.update({
-      where: { id: envId },
+      where: { id: environmentId },
       data: updateEnvDto,
     });
 
     return new EnviromentEntity(env);
   }
 
-  async remove(envId: number) {
-    await this.findOne(envId);
+  async remove(environmentId: number) {
+    await this.findOne(environmentId);
 
-    const environment = await this.prisma.environment.delete({
-      where: { id: envId },
+    const env = await this.prisma.environment.delete({
+      where: { id: environmentId },
     });
 
-    return new EnviromentEntity(environment);
+    return new EnviromentEntity(env);
   }
 
   private async validateUniqueEnvName(

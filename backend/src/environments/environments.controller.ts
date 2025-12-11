@@ -28,13 +28,13 @@ export class EnvironmentsController {
   @Post()
   @UseInterceptors(ClassSerializerInterceptor)
   @HttpCode(HttpStatus.CREATED)
-  create(@Body() createEnvDto: CreateEnvDto): Promise<EnviromentEntity> {
+  async create(@Body() createEnvDto: CreateEnvDto): Promise<EnviromentEntity> {
     return this.environmentsService.create(createEnvDto);
   }
 
   @Get()
   @UseInterceptors(ClassSerializerInterceptor)
-  findAll(
+  async findAll(
     @Query('projectId', ParseIntPipe) projectId: number,
   ): Promise<EnviromentEntity[]> {
     return this.environmentsService.findAll(projectId);
@@ -42,22 +42,26 @@ export class EnvironmentsController {
 
   @Get(':id')
   @UseInterceptors(ClassSerializerInterceptor)
-  findOne(@Param('id', ParseIntPipe) envId: number): Promise<EnviromentEntity> {
-    return this.environmentsService.findOne(envId);
+  async findOne(
+    @Param('id', ParseIntPipe) environmentId: number,
+  ): Promise<EnviromentEntity> {
+    return this.environmentsService.findOne(environmentId);
   }
 
   @Patch(':id')
   @UseInterceptors(ClassSerializerInterceptor)
-  update(
-    @Param('id', ParseIntPipe) envId: number,
+  async update(
+    @Param('id', ParseIntPipe) environmentId: number,
     @Body() updateEnvDto: UpdateEnvDto,
   ): Promise<EnviromentEntity> {
-    return this.environmentsService.update(envId, updateEnvDto);
+    return this.environmentsService.update(environmentId, updateEnvDto);
   }
 
   @Delete(':id')
   @UseInterceptors(ClassSerializerInterceptor)
-  remove(@Param('id', ParseIntPipe) envId: number): Promise<EnviromentEntity> {
-    return this.environmentsService.remove(envId);
+  async remove(
+    @Param('id', ParseIntPipe) environmentId: number,
+  ): Promise<EnviromentEntity> {
+    return this.environmentsService.remove(environmentId);
   }
 }

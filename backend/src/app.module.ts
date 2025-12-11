@@ -5,6 +5,7 @@ import { UsersModule } from './users/users.module.js';
 import { DatabaseModule } from './database/database.module.js';
 import { ProjectsModule } from './projects/projects.module';
 import { EnvironmentsModule } from './environments/environments.module';
+import { FeatureFlagsModule } from './feature-flags/feature-flags.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { EnvironmentsModule } from './environments/environments.module';
     UsersModule,
     ProjectsModule,
     EnvironmentsModule,
+    FeatureFlagsModule,
   ],
   controllers: [],
   providers: [],
