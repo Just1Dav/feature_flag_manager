@@ -18,7 +18,7 @@ import { EnvironmentsService } from './environments.service';
 import { CreateEnvDto } from './dto/create-environment.dto';
 import { UpdateEnvDto } from './dto/update-environment.dto';
 import { AuthGuard } from '@/auth/auth.guard';
-import { EnviromentEntity } from './entities/environment.entity';
+import { EnvironmentEntity } from './entities/environment.entity';
 
 @Controller('environments')
 @UseGuards(AuthGuard)
@@ -28,7 +28,7 @@ export class EnvironmentsController {
   @Post()
   @UseInterceptors(ClassSerializerInterceptor)
   @HttpCode(HttpStatus.CREATED)
-  async create(@Body() createEnvDto: CreateEnvDto): Promise<EnviromentEntity> {
+  async create(@Body() createEnvDto: CreateEnvDto): Promise<EnvironmentEntity> {
     return this.environmentsService.create(createEnvDto);
   }
 
@@ -36,7 +36,7 @@ export class EnvironmentsController {
   @UseInterceptors(ClassSerializerInterceptor)
   async findAll(
     @Query('projectId', ParseIntPipe) projectId: number,
-  ): Promise<EnviromentEntity[]> {
+  ): Promise<EnvironmentEntity[]> {
     return this.environmentsService.findAll(projectId);
   }
 
@@ -44,7 +44,7 @@ export class EnvironmentsController {
   @UseInterceptors(ClassSerializerInterceptor)
   async findOne(
     @Param('id', ParseIntPipe) environmentId: number,
-  ): Promise<EnviromentEntity> {
+  ): Promise<EnvironmentEntity> {
     return this.environmentsService.findOne(environmentId);
   }
 
@@ -53,7 +53,7 @@ export class EnvironmentsController {
   async update(
     @Param('id', ParseIntPipe) environmentId: number,
     @Body() updateEnvDto: UpdateEnvDto,
-  ): Promise<EnviromentEntity> {
+  ): Promise<EnvironmentEntity> {
     return this.environmentsService.update(environmentId, updateEnvDto);
   }
 
@@ -61,7 +61,7 @@ export class EnvironmentsController {
   @UseInterceptors(ClassSerializerInterceptor)
   async remove(
     @Param('id', ParseIntPipe) environmentId: number,
-  ): Promise<EnviromentEntity> {
+  ): Promise<EnvironmentEntity> {
     return this.environmentsService.remove(environmentId);
   }
 }

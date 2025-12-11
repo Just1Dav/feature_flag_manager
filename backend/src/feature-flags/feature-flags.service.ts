@@ -45,7 +45,7 @@ export class FeatureFlagsService {
     });
 
     if (!flag) {
-      throw new NotFoundException('Ambiente não encontrado.');
+      throw new NotFoundException('Feature flag não encontrada.');
     }
 
     return new FeatureFlagEntity(flag);
@@ -88,6 +88,7 @@ export class FeatureFlagsService {
   async findFeatureFlagsByProject(
     projectId: number,
   ): Promise<FeatureFlagEntity[]> {
+    console.log({ projectId });
     const flags = await this.prisma.featureFlag.findMany({
       where: {
         environment: {

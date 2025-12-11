@@ -19,7 +19,6 @@ import { CreateFeatureFlagDto } from './dto/create-feature-flag.dto';
 import { UpdateFeatureFlagDto } from './dto/update-feature-flag.dto';
 import { AuthGuard } from '@/auth/auth.guard';
 import { FeatureFlagEntity } from './entities/feature-flag.entity';
-import { FindByProjectDto } from './dto/find-by-project.dto';
 
 @Controller('feature-flags')
 @UseGuards(AuthGuard)
@@ -71,10 +70,11 @@ export class FeatureFlagsController {
     return await this.featureFlagsService.remove(featureFlagId);
   }
 
-  @Get()
+  @Get('project/:id')
+  @UseInterceptors(ClassSerializerInterceptor)
   async findFeatureFlagsByProject(
-    @Query() query: FindByProjectDto,
+    @Param('id', ParseIntPipe) projectId: number,
   ): Promise<FeatureFlagEntity[]> {
-    return this.featureFlagsService.findFeatureFlagsByProject(query.projectId);
+    return await this.featureFlagsService.findFeatureFlagsByProject(projectId);
   }
 }

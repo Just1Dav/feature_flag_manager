@@ -6,13 +6,13 @@ import {
 import { CreateEnvDto } from './dto/create-environment.dto';
 import { UpdateEnvDto } from './dto/update-environment.dto';
 import { PrismaService } from '@/database/prisma.service';
-import { EnviromentEntity } from './entities/environment.entity';
+import { EnvironmentEntity } from './entities/environment.entity';
 
 @Injectable()
 export class EnvironmentsService {
   constructor(private prisma: PrismaService) {}
 
-  async create(createEnvDto: CreateEnvDto): Promise<EnviromentEntity> {
+  async create(createEnvDto: CreateEnvDto): Promise<EnvironmentEntity> {
     const { projectId, name } = createEnvDto;
 
     await this.validateUniqueEnvName(projectId, name);
@@ -21,10 +21,10 @@ export class EnvironmentsService {
       data: createEnvDto,
     });
 
-    return new EnviromentEntity(env);
+    return new EnvironmentEntity(env);
   }
 
-  async findAll(projectId: number): Promise<EnviromentEntity[]> {
+  async findAll(projectId: number): Promise<EnvironmentEntity[]> {
     const envs = await this.prisma.environment.findMany({
       where: {
         projectId,
@@ -34,10 +34,10 @@ export class EnvironmentsService {
       },
     });
 
-    return envs.map((env) => new EnviromentEntity(env));
+    return envs.map((env) => new EnvironmentEntity(env));
   }
 
-  async findOne(environmentId: number): Promise<EnviromentEntity> {
+  async findOne(environmentId: number): Promise<EnvironmentEntity> {
     const env = await this.prisma.environment.findUnique({
       where: { id: environmentId },
     });
@@ -46,13 +46,13 @@ export class EnvironmentsService {
       throw new NotFoundException('Ambiente não encontrado.');
     }
 
-    return new EnviromentEntity(env);
+    return new EnvironmentEntity(env);
   }
 
   async update(
     environmentId: number,
     updateEnvDto: UpdateEnvDto,
-  ): Promise<EnviromentEntity> {
+  ): Promise<EnvironmentEntity> {
     const currentEnv = await this.findOne(environmentId);
 
     if (updateEnvDto.name && updateEnvDto.name !== currentEnv.name) {
@@ -64,7 +64,7 @@ export class EnvironmentsService {
       data: updateEnvDto,
     });
 
-    return new EnviromentEntity(env);
+    return new EnvironmentEntity(env);
   }
 
   async remove(environmentId: number) {
@@ -74,7 +74,7 @@ export class EnvironmentsService {
       where: { id: environmentId },
     });
 
-    return new EnviromentEntity(env);
+    return new EnvironmentEntity(env);
   }
 
   private async validateUniqueEnvName(

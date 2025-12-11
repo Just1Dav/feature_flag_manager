@@ -1,4 +1,5 @@
-import { Exclude } from 'class-transformer';
+import { EnvironmentEntity } from '@/environments/entities/environment.entity';
+import { Exclude, Expose, Type } from 'class-transformer';
 
 export class FeatureFlagEntity {
   id: number;
@@ -15,6 +16,10 @@ export class FeatureFlagEntity {
 
   @Exclude()
   updatedAt: Date;
+
+  @Expose()
+  @Type(() => EnvironmentEntity)
+  environment?: EnvironmentEntity;
 
   constructor(partial: Partial<FeatureFlagEntity>) {
     Object.assign(this, partial);
