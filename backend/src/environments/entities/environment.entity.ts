@@ -1,16 +1,16 @@
 import { Exclude } from 'class-transformer';
 
 /*
-   Mantendo a entidade do projeto para tipagem consistente e
-   para caso de precisar algo no retorno dos projetos futuramente
+   Mantendo a entidade do ambiente para tipagem consistente e
+   para caso de precisar algo no retorno dos ambientes futuramente
 */
-export class ProjectEntity {
+export class EnviromentEntity {
   id: number;
   name: string;
   description: string | null;
 
   @Exclude()
-  userId: number;
+  projectId: number;
 
   @Exclude()
   createdAt: Date;
@@ -19,7 +19,7 @@ export class ProjectEntity {
   updatedAt: Date;
 
   // Utilitário para facilitar a criação de instâncias da entidade
-  constructor(partial: Partial<ProjectEntity>) {
+  constructor(partial: Partial<EnviromentEntity>) {
     Object.assign(this, partial);
   }
 }

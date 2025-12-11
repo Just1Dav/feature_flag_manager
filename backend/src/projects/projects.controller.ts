@@ -11,6 +11,7 @@ import {
   Patch,
   HttpCode,
   HttpStatus,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { CreateProjectDto } from './dto/create-project.dto';
@@ -40,17 +41,31 @@ export class ProjectsController {
     return this.projectsService.findAll(userId);
   }
 
+  @Get(':id')
+  @UseInterceptors(ClassSerializerInterceptor)
+  findOne(
+    @Param('id', ParseIntPipe) projectId: number,
+    @CurrentUserId('sub') userId: number,
+  ): Promise<ProjectEntity> {
+    return this.projectsService.findOne(projectId, userId);
+  }
+
   @Patch(':id')
+  @UseInterceptors(ClassSerializerInterceptor)
   update(
-    @Param('id') projectId: string,
+    @Param('id', ParseIntPipe) projectId: number,
     @Body() updateProjectDto: UpdateProjectDto,
     @CurrentUserId('sub') userId: number,
   ): Promise<ProjectEntity> {
-    return this.projectsService.update(+projectId, updateProjectDto, userId);
+    return this.projectsService.update(projectId, updateProjectDto, userId);
   }
 
   @Delete(':id')
-  remove(@Param('id') projectId: string, @CurrentUserId('sub') userId: number) {
-    return this.projectsService.remove(+projectId, userId);
+  @UseInterceptors(ClassSerializerInterceptor)
+  remove(
+    @Param('id', ParseIntPipe) projectId: number,
+    @CurrentUserId('sub') userId: number,
+  ): Promise<ProjectEntity> {
+    return this.projectsService.remove(projectId, userId);
   }
 }

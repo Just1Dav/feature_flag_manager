@@ -18,7 +18,7 @@ export class ProjectsService {
   ): Promise<ProjectEntity> {
     const { name } = createProjectDto;
 
-    await this.validateUniqueName(userId, name);
+    await this.validateUniqueProjectName(userId, name);
 
     const project = await this.prisma.project.create({
       data: {
@@ -33,14 +33,26 @@ export class ProjectsService {
   async findAll(userId: number): Promise<ProjectEntity[]> {
     const projects = await this.prisma.project.findMany({
       where: {
-        userId: userId,
+        userId,
       },
       orderBy: {
-        createdAt: 'desc',
+        createdAt: 'asc',
       },
     });
 
     return projects.map((project) => new ProjectEntity(project));
+  }
+
+  async findOne(projectId: number, userId: number): Promise<ProjectEntity> {
+    const project = await this.prisma.project.findUnique({
+      where: { id: projectId },
+    });
+
+    if (!project || project.userId !== userId) {
+      throw new NotFoundException('Projeto não encontrado.');
+    }
+
+    return new ProjectEntity(project);
   }
 
   async update(
@@ -48,10 +60,13 @@ export class ProjectsService {
     updateProjectDto: UpdateProjectDto,
     userId: number,
   ): Promise<ProjectEntity> {
-    await this.validateProjectExistence(userId, projectId);
+    const currentProject = await this.findOne(projectId, userId);
 
-    if (updateProjectDto.name) {
-      await this.validateUniqueName(userId, updateProjectDto.name, projectId);
+    if (
+      updateProjectDto.name &&
+      updateProjectDto.name !== currentProject.name
+    ) {
+      await this.validateUniqueProjectName(userId, updateProjectDto.name);
     }
 
     const project = await this.prisma.project.update({
@@ -62,18 +77,19 @@ export class ProjectsService {
     return new ProjectEntity(project);
   }
 
-  async remove(id: number, userId: number): Promise<ProjectEntity> {
-    await this.validateProjectExistence(userId, id);
+  async remove(projectId: number, userId: number): Promise<ProjectEntity> {
+    await this.findOne(projectId, userId);
+
     const project = await this.prisma.project.delete({
-      where: { id },
+      where: { id: projectId },
     });
+
     return new ProjectEntity(project);
   }
 
-  private async validateUniqueName(
+  private async validateUniqueProjectName(
     userId: number,
     name: string,
-    excludeProjectId?: number,
   ): Promise<void> {
     const project = await this.prisma.project.findUnique({
       where: {
@@ -85,19 +101,7 @@ export class ProjectsService {
     });
 
     if (project) {
-      if (!excludeProjectId || project.id !== excludeProjectId) {
-        throw new ConflictException('Já possui um projeto com este nome.');
-      }
-    }
-  }
-
-  private async validateProjectExistence(userId: number, projectId: number) {
-    const existingProject = await this.prisma.project.findUnique({
-      where: { id: projectId },
-    });
-
-    if (!existingProject || existingProject.userId !== userId) {
-      throw new NotFoundException('Projeto não encontrado.');
+      throw new ConflictException('Já existe um projeto com este nome.');
     }
   }
 }

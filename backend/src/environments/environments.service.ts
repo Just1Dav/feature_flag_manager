@@ -1,0 +1,99 @@
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { CreateEnvDto } from './dto/create-environment.dto';
+import { UpdateEnvDto } from './dto/update-environment.dto';
+import { PrismaService } from '@/database/prisma.service';
+import { EnviromentEntity } from './entities/environment.entity';
+
+@Injectable()
+export class EnvironmentsService {
+  constructor(private prisma: PrismaService) {}
+
+  async create(createEnvDto: CreateEnvDto): Promise<EnviromentEntity> {
+    const { projectId, name } = createEnvDto;
+
+    await this.validateUniqueEnvName(projectId, name);
+
+    const env = await this.prisma.environment.create({
+      data: createEnvDto,
+    });
+
+    return new EnviromentEntity(env);
+  }
+
+  async findAll(projectId: number): Promise<EnviromentEntity[]> {
+    const envs = await this.prisma.environment.findMany({
+      where: {
+        projectId,
+      },
+      orderBy: {
+        createdAt: 'asc',
+      },
+    });
+
+    return envs.map((env) => new EnviromentEntity(env));
+  }
+
+  async findOne(envId: number): Promise<EnviromentEntity> {
+    const env = await this.prisma.environment.findUnique({
+      where: { id: envId },
+    });
+
+    if (!env) {
+      throw new NotFoundException('Ambiente não encontrado.');
+    }
+
+    return new EnviromentEntity(env);
+  }
+
+  async update(
+    envId: number,
+    updateEnvDto: UpdateEnvDto,
+  ): Promise<EnviromentEntity> {
+    const currentEnv = await this.findOne(envId);
+
+    if (updateEnvDto.name && updateEnvDto.name !== currentEnv.name) {
+      await this.validateUniqueEnvName(currentEnv.projectId, updateEnvDto.name);
+    }
+
+    const env = await this.prisma.environment.update({
+      where: { id: envId },
+      data: updateEnvDto,
+    });
+
+    return new EnviromentEntity(env);
+  }
+
+  async remove(envId: number) {
+    await this.findOne(envId);
+
+    const environment = await this.prisma.environment.delete({
+      where: { id: envId },
+    });
+
+    return new EnviromentEntity(environment);
+  }
+
+  private async validateUniqueEnvName(
+    projectId: number,
+    name: string,
+  ): Promise<void> {
+    const existingEnv = await this.prisma.environment.findUnique({
+      where: {
+        projectId_name: {
+          projectId,
+          name,
+        },
+      },
+    });
+
+    if (existingEnv) {
+      throw new ConflictException(
+        'Já existe um ambiente com este nome neste projeto.',
+      );
+    }
+  }
+}
