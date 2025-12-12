@@ -1,0 +1,26 @@
+---
+import { Toaster } from '@/components/ui/sonner';
+import '../styles/global.css';
+const { title } = Astro.props;
+
+interface Props {
+  title: string;
+}
+---
+
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title} | FlagMaster</title>
+    <meta name="description" content="Feature Flag Manager Application" />
+  </head>
+  <body class="min-h-screen bg-gray-50">
+    <main class="container mx-auto px-4 py-8 md:px-6">
+      <slot />
+    </main>
+
+    <Toaster client:idle />
+  </body>
+</html>

@@ -34,17 +34,13 @@ export class EnvironmentsController {
 
   @Get()
   @UseInterceptors(ClassSerializerInterceptor)
-  async findAll(
-    @Query('projectId', ParseIntPipe) projectId: number,
-  ): Promise<EnvironmentEntity[]> {
+  async findAll(@Query('projectId', ParseIntPipe) projectId: number): Promise<EnvironmentEntity[]> {
     return this.environmentsService.findAll(projectId);
   }
 
   @Get(':id')
   @UseInterceptors(ClassSerializerInterceptor)
-  async findOne(
-    @Param('id', ParseIntPipe) environmentId: number,
-  ): Promise<EnvironmentEntity> {
+  async findOne(@Param('id', ParseIntPipe) environmentId: number): Promise<EnvironmentEntity> {
     return this.environmentsService.findOne(environmentId);
   }
 
@@ -59,9 +55,7 @@ export class EnvironmentsController {
 
   @Delete(':id')
   @UseInterceptors(ClassSerializerInterceptor)
-  async remove(
-    @Param('id', ParseIntPipe) environmentId: number,
-  ): Promise<EnvironmentEntity> {
+  async remove(@Param('id', ParseIntPipe) environmentId: number): Promise<EnvironmentEntity> {
     return this.environmentsService.remove(environmentId);
   }
 }

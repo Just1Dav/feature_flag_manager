@@ -1,8 +1,4 @@
-import {
-  ConflictException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { PrismaService } from '@/database/prisma.service';
@@ -12,10 +8,7 @@ import { ProjectEntity } from './entities/project.entity';
 export class ProjectsService {
   constructor(private prisma: PrismaService) {}
 
-  async create(
-    userId: number,
-    createProjectDto: CreateProjectDto,
-  ): Promise<ProjectEntity> {
+  async create(userId: number, createProjectDto: CreateProjectDto): Promise<ProjectEntity> {
     const { name } = createProjectDto;
 
     await this.validateUniqueProjectName(userId, name);
@@ -55,17 +48,10 @@ export class ProjectsService {
     return new ProjectEntity(project);
   }
 
-  async update(
-    projectId: number,
-    updateProjectDto: UpdateProjectDto,
-    userId: number,
-  ): Promise<ProjectEntity> {
+  async update(projectId: number, updateProjectDto: UpdateProjectDto, userId: number): Promise<ProjectEntity> {
     const currentProject = await this.findOne(projectId, userId);
 
-    if (
-      updateProjectDto.name &&
-      updateProjectDto.name !== currentProject.name
-    ) {
+    if (updateProjectDto.name && updateProjectDto.name !== currentProject.name) {
       await this.validateUniqueProjectName(userId, updateProjectDto.name);
     }
 
@@ -87,10 +73,7 @@ export class ProjectsService {
     return new ProjectEntity(project);
   }
 
-  private async validateUniqueProjectName(
-    userId: number,
-    name: string,
-  ): Promise<void> {
+  private async validateUniqueProjectName(userId: number, name: string): Promise<void> {
     const project = await this.prisma.project.findUnique({
       where: {
         userId_name: {

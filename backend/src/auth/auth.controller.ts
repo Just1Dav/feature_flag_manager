@@ -10,7 +10,6 @@ import {
 import { AuthService } from './auth.service';
 import { SignupDto } from './dto/signup.dto';
 import { SigninDto, SigninResponseDto } from './dto/signin.dto';
-import { UserEntity } from '@/users/entities/user.entity';
 
 @Controller('auth')
 export class AuthController {
@@ -18,7 +17,7 @@ export class AuthController {
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Post('signup')
-  async signup(@Body() signupDto: SignupDto): Promise<UserEntity> {
+  async signup(@Body() signupDto: SignupDto): Promise<SigninResponseDto> {
     return this.authService.signup(signupDto);
   }
 

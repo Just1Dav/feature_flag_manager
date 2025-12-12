@@ -1,0 +1,86 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+:root {
+  --radius: 0.75rem;
+  /* Background & Foreground */
+  --background: oklch(98.5% 0 0);
+  --foreground: oklch(28% 0.032 263);
+
+  /* Card */
+  --card: oklch(100% 0 0);
+  --card-foreground: oklch(28% 0.032 263);
+
+  /* Popover */
+  --popover: oklch(100% 0 0);
+  --popover-foreground: oklch(28% 0.032 263);
+
+  /* Primary (Laranja) */
+  --primary: oklch(64.6% 0.222 41.1);
+  --primary-foreground: oklch(100% 0 0);
+
+  /* Secondary */
+  --secondary: oklch(96% 0.01 263);
+  --secondary-foreground: oklch(28% 0.032 263);
+
+  /* Muted */
+  --muted: oklch(96% 0.01 263);
+  --muted-foreground: oklch(55% 0.05 263);
+
+  /* Accent */
+  --accent: oklch(96% 0.02 41.1);
+  --accent-foreground: oklch(50% 0.18 41.1);
+
+  /* Destructive */
+  --destructive: oklch(62.774% 0.22616 13.464);
+  --destructive-foreground: oklch(100% 0 0);
+
+  /* Success (Verde) */
+  --success: oklch(55% 0.16 145);
+  --success-foreground: oklch(100% 0 0);
+
+  /* Border, Input, Ring */
+  --border: oklch(92% 0.02 263);
+  --input: oklch(92% 0.02 263);
+  --ring: oklch(64.6% 0.222 41.1);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+}
+
+.dialog-overlay {
+  @apply fixed inset-0 z-50 bg-black/80 backdrop-blur-sm;
+}

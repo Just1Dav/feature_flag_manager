@@ -1,14 +1,8 @@
-import {
-  ConflictException,
-  Injectable,
-  NotFoundException,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { SigninDto, SigninResponseDto } from './dto/signin.dto';
 import { SignupDto } from './dto/signup.dto';
-import { UserEntity } from '@/users/entities/user.entity';
 import { UsersService } from '@/users/users.service';
 
 @Injectable()
@@ -18,7 +12,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async signup(signupDto: SignupDto): Promise<UserEntity> {
+  async signup(signupDto: SignupDto): Promise<SigninResponseDto> {
     const { email, password, name } = signupDto;
 
     const userExists = await this.usersService.findByEmail(email);
@@ -36,7 +30,11 @@ export class AuthService {
       password: hashedPassword,
     });
 
-    return new UserEntity(newUser);
+    const payload = { sub: newUser.id };
+
+    return {
+      access_token: await this.jwtService.signAsync(payload),
+    };
   }
 
   async signin(signinDto: SigninDto): Promise<SigninResponseDto> {
@@ -44,10 +42,7 @@ export class AuthService {
 
     if (!user) throw new NotFoundException('Usuário não encontrado.');
 
-    const passwordMatch = await bcrypt.compare(
-      signinDto.password,
-      user.password,
-    );
+    const passwordMatch = await bcrypt.compare(signinDto.password, user.password);
 
     if (!passwordMatch) {
       throw new UnauthorizedException('Credenciais inválidas.');

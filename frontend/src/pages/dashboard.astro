@@ -1,0 +1,15 @@
+---
+import { Button } from '@/components/ui/button';
+import MainLayout from '@/layouts/main.astro';
+import { Plus } from '@lucide/astro';
+---
+
+<MainLayout title="Meus Projetos">
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="mb-6 text-3xl font-bold">Meus Projetos</h1>
+      <p>Gerencie seus projetos</p>
+    </div>
+    <Button size="lg"><Plus />Novo Projeto</Button>
+  </div>
+</MainLayout>

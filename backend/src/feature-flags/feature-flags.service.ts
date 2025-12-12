@@ -1,8 +1,4 @@
-import {
-  ConflictException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateFeatureFlagDto } from './dto/create-feature-flag.dto';
 import { UpdateFeatureFlagDto } from './dto/update-feature-flag.dto';
 import { FeatureFlagEntity } from './entities/feature-flag.entity';
@@ -12,9 +8,7 @@ import { PrismaService } from '@/database/prisma.service';
 export class FeatureFlagsService {
   constructor(private prisma: PrismaService) {}
 
-  async create(
-    createFeatureFlagDto: CreateFeatureFlagDto,
-  ): Promise<FeatureFlagEntity> {
+  async create(createFeatureFlagDto: CreateFeatureFlagDto): Promise<FeatureFlagEntity> {
     const { environmentId, name } = createFeatureFlagDto;
 
     await this.validateUniqueFeatureFlagName(environmentId, name);
@@ -51,20 +45,11 @@ export class FeatureFlagsService {
     return new FeatureFlagEntity(flag);
   }
 
-  async update(
-    featureFlagId: number,
-    updateFeatureFlagDto: UpdateFeatureFlagDto,
-  ): Promise<FeatureFlagEntity> {
+  async update(featureFlagId: number, updateFeatureFlagDto: UpdateFeatureFlagDto): Promise<FeatureFlagEntity> {
     const currentFlag = await this.findOne(featureFlagId);
 
-    if (
-      updateFeatureFlagDto.name &&
-      updateFeatureFlagDto.name !== currentFlag.name
-    ) {
-      await this.validateUniqueFeatureFlagName(
-        currentFlag.environmentId,
-        updateFeatureFlagDto.name,
-      );
+    if (updateFeatureFlagDto.name && updateFeatureFlagDto.name !== currentFlag.name) {
+      await this.validateUniqueFeatureFlagName(currentFlag.environmentId, updateFeatureFlagDto.name);
     }
 
     const flag = await this.prisma.featureFlag.update({
@@ -85,9 +70,7 @@ export class FeatureFlagsService {
     return new FeatureFlagEntity(flag);
   }
 
-  async findFeatureFlagsByProject(
-    projectId: number,
-  ): Promise<FeatureFlagEntity[]> {
+  async findFeatureFlagsByProject(projectId: number): Promise<FeatureFlagEntity[]> {
     console.log({ projectId });
     const flags = await this.prisma.featureFlag.findMany({
       where: {
@@ -106,10 +89,7 @@ export class FeatureFlagsService {
     return flags.map((flag) => new FeatureFlagEntity(flag));
   }
 
-  private async validateUniqueFeatureFlagName(
-    environmentId: number,
-    name: string,
-  ): Promise<void> {
+  private async validateUniqueFeatureFlagName(environmentId: number, name: string): Promise<void> {
     const existingEnv = await this.prisma.featureFlag.findUnique({
       where: {
         environmentId_name: {
@@ -120,9 +100,7 @@ export class FeatureFlagsService {
     });
 
     if (existingEnv) {
-      throw new ConflictException(
-        'Já existe uma feature flag com este nome neste ambiente.',
-      );
+      throw new ConflictException('Já existe uma feature flag com este nome neste ambiente.');
     }
   }
 }

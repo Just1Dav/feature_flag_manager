@@ -28,25 +28,19 @@ export class FeatureFlagsController {
   @Post()
   @UseInterceptors(ClassSerializerInterceptor)
   @HttpCode(HttpStatus.CREATED)
-  async create(
-    @Body() createFeatureFlagDto: CreateFeatureFlagDto,
-  ): Promise<FeatureFlagEntity> {
+  async create(@Body() createFeatureFlagDto: CreateFeatureFlagDto): Promise<FeatureFlagEntity> {
     return await this.featureFlagsService.create(createFeatureFlagDto);
   }
 
   @Get()
   @UseInterceptors(ClassSerializerInterceptor)
-  async findAll(
-    @Query('environmentId', ParseIntPipe) environmentId: number,
-  ): Promise<FeatureFlagEntity[]> {
+  async findAll(@Query('environmentId', ParseIntPipe) environmentId: number): Promise<FeatureFlagEntity[]> {
     return await this.featureFlagsService.findAll(environmentId);
   }
 
   @Get(':id')
   @UseInterceptors(ClassSerializerInterceptor)
-  async findOne(
-    @Param('id', ParseIntPipe) featureFlagId: number,
-  ): Promise<FeatureFlagEntity> {
+  async findOne(@Param('id', ParseIntPipe) featureFlagId: number): Promise<FeatureFlagEntity> {
     return await this.featureFlagsService.findOne(featureFlagId);
   }
 
@@ -56,25 +50,18 @@ export class FeatureFlagsController {
     @Param('id', ParseIntPipe) featureFlagId: number,
     @Body() updateFeatureFlagDto: UpdateFeatureFlagDto,
   ): Promise<FeatureFlagEntity> {
-    return await this.featureFlagsService.update(
-      featureFlagId,
-      updateFeatureFlagDto,
-    );
+    return await this.featureFlagsService.update(featureFlagId, updateFeatureFlagDto);
   }
 
   @Delete(':id')
   @UseInterceptors(ClassSerializerInterceptor)
-  async remove(
-    @Param('id', ParseIntPipe) featureFlagId: number,
-  ): Promise<FeatureFlagEntity> {
+  async remove(@Param('id', ParseIntPipe) featureFlagId: number): Promise<FeatureFlagEntity> {
     return await this.featureFlagsService.remove(featureFlagId);
   }
 
   @Get('project/:id')
   @UseInterceptors(ClassSerializerInterceptor)
-  async findFeatureFlagsByProject(
-    @Param('id', ParseIntPipe) projectId: number,
-  ): Promise<FeatureFlagEntity[]> {
+  async findFeatureFlagsByProject(@Param('id', ParseIntPipe) projectId: number): Promise<FeatureFlagEntity[]> {
     return await this.featureFlagsService.findFeatureFlagsByProject(projectId);
   }
 }

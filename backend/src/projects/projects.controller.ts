@@ -28,10 +28,7 @@ export class ProjectsController {
   @Post()
   @UseInterceptors(ClassSerializerInterceptor)
   @HttpCode(HttpStatus.CREATED)
-  create(
-    @Body() createProjectDto: CreateProjectDto,
-    @CurrentUserId('sub') userId: number,
-  ): Promise<ProjectEntity> {
+  create(@Body() createProjectDto: CreateProjectDto, @CurrentUserId('sub') userId: number): Promise<ProjectEntity> {
     return this.projectsService.create(userId, createProjectDto);
   }
 
@@ -43,10 +40,7 @@ export class ProjectsController {
 
   @Get(':id')
   @UseInterceptors(ClassSerializerInterceptor)
-  findOne(
-    @Param('id', ParseIntPipe) projectId: number,
-    @CurrentUserId('sub') userId: number,
-  ): Promise<ProjectEntity> {
+  findOne(@Param('id', ParseIntPipe) projectId: number, @CurrentUserId('sub') userId: number): Promise<ProjectEntity> {
     return this.projectsService.findOne(projectId, userId);
   }
 
@@ -62,10 +56,7 @@ export class ProjectsController {
 
   @Delete(':id')
   @UseInterceptors(ClassSerializerInterceptor)
-  remove(
-    @Param('id', ParseIntPipe) projectId: number,
-    @CurrentUserId('sub') userId: number,
-  ): Promise<ProjectEntity> {
+  remove(@Param('id', ParseIntPipe) projectId: number, @CurrentUserId('sub') userId: number): Promise<ProjectEntity> {
     return this.projectsService.remove(projectId, userId);
   }
 }

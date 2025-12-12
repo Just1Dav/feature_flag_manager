@@ -1,8 +1,4 @@
-import {
-  ConflictException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateEnvDto } from './dto/create-environment.dto';
 import { UpdateEnvDto } from './dto/update-environment.dto';
 import { PrismaService } from '@/database/prisma.service';
@@ -49,10 +45,7 @@ export class EnvironmentsService {
     return new EnvironmentEntity(env);
   }
 
-  async update(
-    environmentId: number,
-    updateEnvDto: UpdateEnvDto,
-  ): Promise<EnvironmentEntity> {
+  async update(environmentId: number, updateEnvDto: UpdateEnvDto): Promise<EnvironmentEntity> {
     const currentEnv = await this.findOne(environmentId);
 
     if (updateEnvDto.name && updateEnvDto.name !== currentEnv.name) {
@@ -77,10 +70,7 @@ export class EnvironmentsService {
     return new EnvironmentEntity(env);
   }
 
-  private async validateUniqueEnvName(
-    projectId: number,
-    name: string,
-  ): Promise<void> {
+  private async validateUniqueEnvName(projectId: number, name: string): Promise<void> {
     const existingEnv = await this.prisma.environment.findUnique({
       where: {
         projectId_name: {
@@ -91,9 +81,7 @@ export class EnvironmentsService {
     });
 
     if (existingEnv) {
-      throw new ConflictException(
-        'Já existe um ambiente com este nome neste projeto.',
-      );
+      throw new ConflictException('Já existe um ambiente com este nome neste projeto.');
     }
   }
 }

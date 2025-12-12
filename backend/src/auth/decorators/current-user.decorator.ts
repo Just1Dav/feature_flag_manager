@@ -7,14 +7,12 @@ export interface UserPayload {
 }
 
 // Decorator para extrair o ID do usuário atual do request
-export const CurrentUserId = createParamDecorator(
-  (data: keyof UserPayload | undefined, ctx: ExecutionContext) => {
-    const request = ctx.switchToHttp().getRequest<{ user?: UserPayload }>();
+export const CurrentUserId = createParamDecorator((data: keyof UserPayload | undefined, ctx: ExecutionContext) => {
+  const request = ctx.switchToHttp().getRequest<{ user?: UserPayload }>();
 
-    const user = request.user;
+  const user = request.user;
 
-    if (!user) return null;
+  if (!user) return null;
 
-    return data ? user[data] : user;
-  },
-);
+  return data ? user[data] : user;
+});
