@@ -1,4 +1,4 @@
-// src/components/islands/AuthForm/LoginForm.tsx
+// src/components/react/AuthForm/LoginForm.tsx
 
 import React, { useState } from 'react';
 import { toast } from 'sonner';
@@ -14,6 +14,8 @@ export function LoginForm() {
     e.preventDefault();
     setIsLoading(true);
 
+    const defaultErrorMessage = 'Ocorreu um erro ao tentar realizar login';
+
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData);
 
@@ -27,19 +29,18 @@ export function LoginForm() {
         }),
       });
 
-      if (response.status !== 200) {
+      if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || 'Erro ao realizar login');
+        throw new Error(errorData.message || defaultErrorMessage);
       }
 
       toast.success('Login realizado com sucesso!');
 
       setTimeout(() => {
         window.location.href = '/dashboard';
-      }, 1000);
+      }, 300);
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'Erro ao realizar login');
-    } finally {
+      toast.error(error instanceof Error ? error.message : defaultErrorMessage);
       setIsLoading(false);
     }
   };

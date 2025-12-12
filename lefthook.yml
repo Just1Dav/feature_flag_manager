@@ -9,7 +9,7 @@ pre-commit:
     # Roda apenas se houver arquivos .ts modificados dentro da pasta backend/
     backend-eslint:
       root: backend/
-      # glob: "backend/**/*.ts"
+      glob: 'backend/**/*.ts'
       run: npx eslint --fix {staged_files} && git add {staged_files}
 
     # Roda apenas se houver arquivos de front modificados dentro da pasta frontend/

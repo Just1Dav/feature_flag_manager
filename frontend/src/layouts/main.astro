@@ -1,6 +1,7 @@
 ---
+import { Toaster } from '@/components/ui/sonner';
 import '../styles/global.css';
-import { Header } from '@/components/islands/Header';
+import { Header } from '@/components/react/Header';
 const { title } = Astro.props;
 
 interface Props {
@@ -21,5 +22,6 @@ interface Props {
     <main class="container mx-auto px-4 py-8 md:px-6">
       <slot />
     </main>
+    <Toaster client:idle />
   </body>
 </html>

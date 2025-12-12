@@ -8,10 +8,11 @@ import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/in
 export function RegisterForm() {
   const [isLoading, setIsLoading] = useState(false);
 
-  // Função para lidar com o Cadastro
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
+
+    const defaultErrorMessage = 'Ocorreu um erro ao tentar cadastrar';
 
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData);
@@ -33,20 +34,18 @@ export function RegisterForm() {
         }),
       });
 
-      if (response.status !== 201) {
+      if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || 'Erro ao cadastrar');
+        throw new Error(errorData.message || defaultErrorMessage);
       }
 
       toast.success('Conta criada com sucesso!');
 
       setTimeout(() => {
         window.location.href = '/dashboard';
-      }, 1000);
+      }, 300);
     } catch (error) {
-      console.error(error);
-      toast.error(error instanceof Error ? error.message : 'Erro ao tentar cadastrar');
-    } finally {
+      toast.error(error instanceof Error ? error.message : defaultErrorMessage);
       setIsLoading(false);
     }
   };

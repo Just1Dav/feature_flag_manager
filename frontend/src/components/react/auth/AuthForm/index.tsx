@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
-import { LoginForm } from '@/components/islands/AuthForm/LoginForm';
-import { RegisterForm } from '@/components/islands/AuthForm/RegisterForm';
+import { LoginForm } from '@/components/react/auth/AuthForm/LoginForm';
+import { RegisterForm } from '@/components/react/auth/AuthForm/RegisterForm';
 
 export function AuthForm() {
   return (

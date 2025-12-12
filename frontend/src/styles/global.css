@@ -23,6 +23,9 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -59,11 +62,11 @@
   --accent-foreground: oklch(50% 0.18 41.1);
 
   /* Destructive */
-  --destructive: oklch(62.774% 0.22616 13.464);
+  --destructive: oklch(55.327% 0.1597 23.926);
   --destructive-foreground: oklch(100% 0 0);
 
   /* Success (Verde) */
-  --success: oklch(55% 0.16 145);
+  --success: oklch(65.949% 0.18617 145.196);
   --success-foreground: oklch(100% 0 0);
 
   /* Border, Input, Ring */

@@ -1,10 +1,18 @@
-import type { APIRoute } from 'astro';
+import type { APIRoute, AstroCookies } from 'astro';
 import { INTERNAL_API_URL } from 'astro:env/server';
 
+const AUTH_COOKIE_NAME = 'access_token';
+
 export const ALL: APIRoute = async ({ request, params, cookies }) => {
-  const AUTH_COOKIE_NAME = 'access_token';
   const path = params.path;
   const method = request.method;
+
+  // Verifica se é uma req de /signout e realiza o tratamento
+  const handledResponse = await handleSignout(path, cookies);
+
+  if (handledResponse) {
+    return handledResponse;
+  }
 
   // Monta a URL para o NestJS
   const targetUrl = new URL(path || '', INTERNAL_API_URL);
@@ -23,25 +31,6 @@ export const ALL: APIRoute = async ({ request, params, cookies }) => {
   }
 
   try {
-    // Verifica se é rota de logout
-    const isLogoutRoute = path?.includes('auth/signout');
-
-    if (isLogoutRoute) {
-      // Remove o cookie de autenticação
-      cookies.set(AUTH_COOKIE_NAME, '', {
-        httpOnly: true,
-        secure: import.meta.env.PROD,
-        path: '/',
-        maxAge: 0,
-      });
-
-      // Retorna uma resposta de sucesso para o front-end
-      return new Response(JSON.stringify({ message: 'Logout bem-sucedido.' }), {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      });
-    }
-
     const response = await fetch(targetUrl, {
       method: method,
       headers: headers,
@@ -56,11 +45,10 @@ export const ALL: APIRoute = async ({ request, params, cookies }) => {
     const isAuthRoute = path?.includes('auth/signin') || path?.includes('auth/signup');
 
     if (isAuthRoute && response.ok) {
-      // Precisamos ler o JSON para pegar o token
       const data = await response.json();
 
+      // Caso exista o token salva ele nos cookies
       if (data.access_token) {
-        // Salva o cookie de forma segura (HttpOnly)
         cookies.set(AUTH_COOKIE_NAME, data.access_token, {
           httpOnly: true,
           secure: import.meta.env.PROD,
@@ -92,3 +80,24 @@ export const ALL: APIRoute = async ({ request, params, cookies }) => {
     });
   }
 };
+
+async function handleSignout(path: string | undefined, cookies: AstroCookies) {
+  // Verifica se é rota de logout
+  const isLogoutRoute = path?.includes('auth/signout');
+
+  if (isLogoutRoute) {
+    // Remove o cookie de autenticação
+    cookies.set(AUTH_COOKIE_NAME, '', {
+      httpOnly: true,
+      secure: import.meta.env.PROD,
+      path: '/',
+      maxAge: 0,
+    });
+
+    // Retorna uma resposta de sucesso para o front-end
+    return new Response(JSON.stringify({ message: 'Logout bem-sucedido.' }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+}

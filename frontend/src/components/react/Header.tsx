@@ -1,29 +1,30 @@
-import { Flag, LogOut, User } from 'lucide-react';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import { Flag, Loader2, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
+import { useState } from 'react';
 
 export function Header() {
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleLogout = async () => {
+    setIsLoading(true);
+
+    const defaultErrorMessage = 'Ocorreu um erro ao tentar sair';
+
     try {
       const response = await fetch('/api/auth/signout', {
         method: 'POST',
       });
 
-      if (response.ok) {
-        toast.success('Você foi desconectado com sucesso.');
-        window.location.href = '/auth';
-      } else {
+      if (!response.ok) {
         const errorData = await response.json();
-        toast.error(errorData.message || 'Erro ao tentar sair da conta.');
+        throw new Error(errorData.message || defaultErrorMessage);
       }
+
+      window.location.href = '/auth';
     } catch (error) {
-      toast.error('Não foi possível conectar ao servidor. Tente novamente.');
+      toast.error(error instanceof Error ? error.message : defaultErrorMessage);
+      setIsLoading(false);
     }
   };
 
@@ -40,9 +41,10 @@ export function Header() {
         <Button
           variant="ghost"
           onClick={handleLogout}
-          className="text-destructive hover:bg-destructive/15 hover:cursor-pointer">
+          className="text-destructive hover:bg-destructive/15 hover:cursor-pointer"
+          disabled={isLoading}>
           <LogOut className="text-destructive mr-2 h-4 w-4" />
-          Sair
+          {isLoading ? 'Saindo...' : 'Sair'}
         </Button>
       </div>
     </header>
