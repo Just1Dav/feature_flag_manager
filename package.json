@@ -17,7 +17,7 @@
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down",
     "docker:logs": "docker-compose logs -f",
-    "build:backend": "cd backend && npm run build",
+    "build:backend": "cd backend && prisma migrate deploy && prisma generate && npm run build",
     "start:backend:prod": "cd backend && npm run start:prod",
     "build:frontend": "cd frontend && npm run build",
     "start:frontend:prod": "cd frontend && node dist/server/entry.mjs",
