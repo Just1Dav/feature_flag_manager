@@ -64,27 +64,27 @@ Exemplo de commit\
 
 Na raiz do projeto, crie um arquivo chamado `.env.backend` com o seguinte conteúdo:
 
-SECRET_KEY="secret_sha256"
+`SECRET_KEY="secret_sha256"`
 
 ### 🛠 Backend
 
-Crie um arquivo `.env` na raiz do backend para rodar a aplicação localmente:
+Crie um arquivo `.env` na raiz do backend:
 
-DATABASE_URL="postgresql://admin:adminpassword@localhost:5431/feature_flags_db?schema=public"\
-SECRET_KEY="secret_sha256"
+`DATABASE_URL="postgresql://admin:adminpassword@localhost:5431/feature_flags_db?schema=public"` <br>
+`SECRET_KEY="secret_sha256"`
 
 ### 🖥 Frontend
 
 No diretório do frontend, crie um arquivo `.env` com a variável abaixo para rodar localmente sem Docker:
 
-INTERNAL_API_URL="<http://127.0.0.1:3000>"
+`INTERNAL_API_URL="http://127.0.0.1:3000"`
 
 ### Testes E2E
 
 Crie um arquivo `.env.test` na raiz do backend para executar os testes E2E:
 
-DATABASE_URL="postgresql://admin:adminpassword@localhost:5434/feature_flags_test_db?schema=public"\
-SECRET_KEY="secret_sha256"
+`DATABASE_URL="postgresql://admin:adminpassword@localhost:5434/feature_flags_test_db?schema=public"`<br>
+`SECRET_KEY="secret_sha256"`
 
 ---
 
@@ -94,7 +94,7 @@ SECRET_KEY="secret_sha256"
 
 Ainda na raiz do projeto, com o Docker já instalado e em execução na sua máquina, execute:
 
-docker compose up --build -d
+`docker compose up --build -d`
 
 Isso irá iniciar:
 
