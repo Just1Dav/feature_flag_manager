@@ -1,0 +1,30 @@
+# --- Build Stage ---
+FROM node:20-alpine AS build
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install
+
+COPY backend/package*.json ./backend/
+RUN cd backend && npm install
+
+COPY backend ./backend
+
+RUN npm run build:backend
+
+# --- Production Stage ---
+FROM node:20-alpine AS production
+WORKDIR /app
+ENV NODE_ENV production
+
+COPY package*.json ./
+RUN npm install --only=production
+
+COPY backend/package*.json ./backend/
+RUN cd backend && npm install --only=production
+
+COPY --from=build /app/backend/dist ./backend/dist
+
+EXPOSE 3000
+
+CMD ["node", "backend/dist/src/main.js"]

@@ -3,8 +3,9 @@ import eslint from '@eslint/js';
 
 export default [
   {
-    ignores: ['eslint.config.js', '.astro/**', 'node_modules/**', 'src/generated/**'],
+    ignores: ['eslint.config.js', 'dist/**', '.astro/**', 'node_modules/**', 'src/generated/**'],
   },
   eslint.configs.recommended,
   ...eslintPluginAstro.configs.recommended,
+  {},
 ];

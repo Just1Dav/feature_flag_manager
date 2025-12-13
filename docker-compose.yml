@@ -13,6 +13,47 @@ services:
     networks:
       - feature_flags_network
 
+  # 2. SERVIÇO DE BACKEND (NestJS)
+  backend:
+    build:
+      # Contexto é a raiz do monorepo (onde está o docker-compose.yml)
+      context: .
+      dockerfile: backend/Dockerfile.backend # Caminho relativo dentro do contexto
+    container_name: feature_flags_backend
+    ports:
+      - '3000:3000'
+    env_file:
+      - .env.backend
+    environment:
+      # O backend agora se conecta ao host 'postgres'
+      DATABASE_URL: postgresql://admin:adminpassword@postgres:5432/feature_flags_db?schema=public
+      PORT: 3000
+    depends_on:
+      - postgres
+    networks:
+      - feature_flags_network
+
+  # 3. SERVIÇO DE FRONTEND (Astro SSR)
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile.frontend
+    container_name: feature_flags_frontend
+    # Mapeamos a porta do contêiner (4321) para a porta do host (4321)
+    ports:
+      - '4321:4321'
+    environment:
+      # O Frontend precisa saber onde está o Backend.
+      # Deve ser acessível de fora (localhost) ou via rede interna
+      # No modo SSR, o Astro faz a chamada de API no Node.js
+      # O host da API para o Node (SSR) dentro do Docker é o NOME DO SERVIÇO:
+      INTERNAL_API_URL: http://backend:3000 # <-- ESSENCIAL!
+      PORT: 4321
+    depends_on:
+      - backend
+    networks:
+      - feature_flags_network
+
 volumes:
   postgres_data:
 

@@ -16,7 +16,11 @@
     "lefthook:sync": "npx lefthook install",
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down",
-    "docker:logs": "docker-compose logs -f"
+    "docker:logs": "docker-compose logs -f",
+    "build:backend": "cd backend && npm run build",
+    "start:backend:prod": "cd backend && npm run start:prod",
+    "build:frontend": "cd frontend && npm run build",
+    "start:frontend:prod": "cd frontend && node dist/server/entry.mjs"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.2.0",

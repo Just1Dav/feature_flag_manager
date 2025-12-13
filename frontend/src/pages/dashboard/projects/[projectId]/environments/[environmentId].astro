@@ -4,7 +4,6 @@ import { fetchWithAuth } from '@/lib/api-server';
 import { FlagList } from '@/components/react/flags/FlagList';
 import PageHeader from '@/components/astro/PageHeader.astro';
 
-// Interfaces
 interface Project {
   id: number;
   name: string;
@@ -18,7 +17,6 @@ interface Environment {
 
 const { projectId, environmentId } = Astro.params;
 
-// 1. Fetch de Dados em Paralelo (Performance)
 const [project, environment] = await Promise.all([
   fetchWithAuth<Project>(`/projects/${projectId}`, Astro),
   fetchWithAuth<Environment>(`/environments/${environmentId}`, Astro),
