@@ -8,6 +8,9 @@ Este projeto é estruturado como um **monorepo**, contendo **backend** e **front
 
 ## 🧠 Tecnologias
 
+> [!ATENÇÃO]
+> Para executar o projeto sem problemas, principalmente os testes, rodar o node em uma destas versões 20.19+, 22.12+, 24.0+
+
 Este projeto é um **monorepo**, dividido da seguinte forma:
 
 ### 🛠 Backend
@@ -87,8 +90,6 @@ SECRET_KEY="secret_sha256"
 
 ## 🐳 Rodando com Docker (Recomendado)
 
-Antes de iniciar, é necessário configurar uma variável de ambiente.
-
 ### Subindo os containers
 
 Ainda na raiz do projeto, com o Docker já instalado e em execução na sua máquina, execute:
@@ -133,10 +134,11 @@ npm install
 ## 🛠️ Banco de Dados com Prisma
 
 Caso esteja rodando o projeto localmente ainda vai ser necessário rodar o docker para configurar o banco de dados e o prisma,
-neste caso ainda srá necessário executar o generate na sua máquina:
+neste caso ainda será necessário executar o generate na sua máquina:
 
 cd backend\
 npx prisma generate
+npx prisma migrate dev --name init
 
 ---
 
