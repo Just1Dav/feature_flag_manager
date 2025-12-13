@@ -59,7 +59,7 @@ Requisitos:
 
 ### 📦 1. Rodando tudo com Docker
 
-No diretório raíz do projeto:
+No diretório raíz do projeto e com docker já iniciado na sua máquina:
 
 `docker compose up --build -d`
 
