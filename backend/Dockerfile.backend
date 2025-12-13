@@ -31,4 +31,4 @@ COPY --from=build /app/backend/prisma.config.mts ./backend/
 
 EXPOSE 3000
 
-CMD ["sh", "-c", "cd backend && npx prisma migrate deploy && node dist/src/main.js"]
+CMD [  "npm", "run", "start:migrate:prod" ]
