@@ -50,7 +50,7 @@ Este projeto utiliza boas práticas de padronização e automação:
 - commitlint para padronização de mensagens de commit
 
 Exemplo de commit\
-(adicione aqui um exemplo de commit padronizado)
+(feat(backend): add new feature)
 
 ---
 
