@@ -190,7 +190,8 @@ Esse passo é obrigatório na primeira execução e sempre que houver alteraçõ
 
 ## 📁 Estrutura do Projeto
 
-`/
+```text
+/
 ├── backend/            # Aplicação NestJS (API REST)
 │   ├── src/
 │   ├── prisma/         # Schema e Migrations do banco
@@ -203,5 +204,6 @@ Esse passo é obrigatório na primeira execução e sempre que houver alteraçõ
 ├── docker-compose.yml  # Orquestração dos serviços (App + Bancos)
 ├── lefthook.yml        # Configuração de Git Hooks
 └── package.json        # Scripts globais do monorepo`
+```
 
 ---
