@@ -20,7 +20,8 @@
     "build:backend": "cd backend && npm run build",
     "start:backend:prod": "cd backend && npm run start:prod",
     "build:frontend": "cd frontend && npm run build",
-    "start:frontend:prod": "cd frontend && node dist/server/entry.mjs"
+    "start:frontend:prod": "cd frontend && node dist/server/entry.mjs",
+    "start:migrate:prod": "cd backend && prisma migrate deploy && prisma generate && npm run start:prod"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.2.0",

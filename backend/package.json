@@ -19,8 +19,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand --detectOpenHandles",
     "test:db:setup": "dotenv -e .env.test -- prisma migrate deploy",
-    "test:e2e": "cross-env NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test -- jest --config ./test/jest-e2e.json",
-    "start:migrate:prod": "prisma migrate deploy && npm run start:prod"
+    "test:e2e": "cross-env NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test -- jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
