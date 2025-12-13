@@ -1,0 +1,34 @@
+---
+import MainLayout from '@/layouts/main.astro';
+import { fetchWithAuth } from '@/lib/api-server';
+import { ProjectTabs } from '@/components/react/projects/ProjectTabs';
+import PageHeader from '@/components/astro/PageHeader.astro';
+
+interface Project {
+  id: number;
+  name: string;
+  description?: string;
+}
+
+const { projectId } = Astro.params;
+
+const project = await fetchWithAuth<Project>(`/projects/${projectId}`, Astro);
+
+if (!project) {
+  return Astro.redirect('/dashboard');
+}
+---
+
+<MainLayout title={project.name}>
+  <div class="space-y-8">
+    <PageHeader
+      name={project.name}
+      description={project.description}
+      showBackButton
+      path="/dashboard"
+      buttonText="Voltar para projetos"
+    />
+
+    <ProjectTabs client:load projectId={project.id} />
+  </div>
+</MainLayout>

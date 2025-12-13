@@ -71,7 +71,6 @@ export class FeatureFlagsService {
   }
 
   async findFeatureFlagsByProject(projectId: number): Promise<FeatureFlagEntity[]> {
-    console.log({ projectId });
     const flags = await this.prisma.featureFlag.findMany({
       where: {
         environment: {

@@ -11,18 +11,9 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { Loader2 } from 'lucide-react';
+import type { ConfirmActionDialogProps } from '@/components/react/ConfirmActionDialog/types';
 
-interface ConfirmDialogProps {
-  children: React.ReactNode;
-  title?: string;
-  description?: string;
-  confirmText?: string;
-  cancelText?: string;
-  variant?: 'default' | 'destructive';
-  onConfirm: () => Promise<void> | void;
-}
-
-export function ConfirmDialog({
+export function ConfirmActionDialog({
   children,
   title = 'Tem certeza absoluta?',
   description = 'Essa ação não pode ser desfeita.',
@@ -30,7 +21,7 @@ export function ConfirmDialog({
   cancelText = 'Cancelar',
   variant = 'destructive',
   onConfirm,
-}: ConfirmDialogProps) {
+}: ConfirmActionDialogProps) {
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 

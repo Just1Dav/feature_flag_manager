@@ -1,12 +1,6 @@
-import { type LucideIcon } from 'lucide-react';
+import type { IEmptyStateProps } from '@/components/react/EmptyState/types';
 
-interface IProps {
-  Icon: LucideIcon;
-  title: string;
-  description: string;
-}
-
-export function EmptyState({ Icon, title, description }: IProps) {
+export function EmptyState({ Icon, title, description }: IEmptyStateProps) {
   return (
     <div className="flex flex-col items-center justify-center py-20 text-center">
       <div className="mb-6 rounded-full bg-orange-100/70 p-6">

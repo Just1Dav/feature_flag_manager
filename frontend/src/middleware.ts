@@ -1,5 +1,6 @@
 import { defineMiddleware } from 'astro:middleware';
 
+// Intercepta as requisições e trata redirecionamentos, autenticação e rotas públicas
 export const onRequest = defineMiddleware(async (context, next) => {
   const { url, cookies, redirect } = context;
 

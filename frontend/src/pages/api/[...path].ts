@@ -39,8 +39,6 @@ export const ALL: APIRoute = async ({ request, params, cookies }) => {
       duplex: 'half',
     });
 
-    console.log(`Resposta do Proxy para ${method} ${targetUrl}:`, response.status);
-
     // Verifica se é rota de login/cadastro E se deu sucesso (200/201)
     const isAuthRoute = path?.includes('auth/signin') || path?.includes('auth/signup');
 

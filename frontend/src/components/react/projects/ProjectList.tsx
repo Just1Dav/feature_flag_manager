@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { useStore } from '@nanostores/react';
 import { FolderOpen } from 'lucide-react';
 import { $projects, setProjects } from '@/stores/projectsStore';
-import { EmptyState } from '@/components/react/EmptyState';
-import { ProjectItem } from '@/components/react/projects/ProjectItem';
 import { toast } from 'sonner';
-import { ItemSkeleton } from '@/components/react/ItemSkeleton';
+import { ItemSkeleton } from '@/components/react/Skeletons';
+import { ResourceItem } from '@/components/react/resources/ResourceItem';
+import { EmptyState } from '@/components/react/EmptyState';
 
 export function ProjectList() {
   const projects = useStore($projects);
@@ -26,6 +26,8 @@ export function ProjectList() {
         const data = await response.json();
 
         setProjects(data);
+
+        if (data.lenght > 0) toast.success('Projetos recuperados com sucesso!');
       } catch (error) {
         toast.error(error instanceof Error ? error.message : defaultErrorMessage);
       } finally {
@@ -38,7 +40,13 @@ export function ProjectList() {
   const containerClass = 'min-h-[50vh] w-full animate-in fade-in duration-500';
 
   if (isLoading) {
-    return <ItemSkeleton containerClass={containerClass} />;
+    return (
+      <div className={containerClass}>
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <ItemSkeleton />
+        </div>
+      </div>
+    );
   }
 
   if (projects.length === 0) {
@@ -57,7 +65,28 @@ export function ProjectList() {
     <div className={containerClass}>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {projects.map((project) => (
-          <ProjectItem key={project.id} project={project} />
+          <ResourceItem
+            resource="projects"
+            key={project.id}
+            resourceData={project}
+            Icon={FolderOpen}
+            destinyUrl={`/dashboard/projects/${project.id}`}
+            deleteErrorMessage="Ocorreu um erro ao tentar excluir o projeto."
+            deleteSuccessMessage={`Projeto "${project.name}" excluído com sucesso!`}
+            deleteDialog={{
+              title: 'Excluir projeto?',
+              description: `Tem certeza que deseja excluir o projeto "${project.name}"? Esta ação não pode ser desfeita e todos os ambientes e feature flags serão perdidos.`,
+              confirmText: 'Excluir',
+              variant: 'destructive',
+            }}
+            updateResource={{
+              dialogTitle: 'Editar projeto',
+              dialogDescription: 'Faça alterações nos dados do projeto',
+              successMessage: 'Projeto atualizado com sucesso',
+              defaultErrorMessage: 'Ocorreu um erro ao editar o projeto.',
+            }}
+            data-astro-prefetch="hover"
+          />
         ))}
       </div>
     </div>

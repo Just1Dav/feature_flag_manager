@@ -24,3 +24,7 @@ export function updateProjectInStore(updatedProject: Project) {
   const newProjects = currentProjects.map((p) => (p.id === updatedProject.id ? updatedProject : p));
   $projects.set(newProjects);
 }
+
+export function removeProjectFromStore(id: number) {
+  $projects.set($projects.get().filter((p) => p.id !== id));
+}

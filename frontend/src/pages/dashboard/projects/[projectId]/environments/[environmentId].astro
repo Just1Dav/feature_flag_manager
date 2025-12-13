@@ -1,0 +1,45 @@
+---
+import MainLayout from '@/layouts/main.astro';
+import { fetchWithAuth } from '@/lib/api-server';
+import { FlagList } from '@/components/react/flags/FlagList';
+import PageHeader from '@/components/astro/PageHeader.astro';
+
+// Interfaces
+interface Project {
+  id: number;
+  name: string;
+}
+interface Environment {
+  id: number;
+  name: string;
+  description?: string;
+  projectId: number;
+}
+
+const { projectId, environmentId } = Astro.params;
+
+// 1. Fetch de Dados em Paralelo (Performance)
+const [project, environment] = await Promise.all([
+  fetchWithAuth<Project>(`/projects/${projectId}`, Astro),
+  fetchWithAuth<Environment>(`/environments/${environmentId}`, Astro),
+]);
+
+if (!project || !environment) return Astro.redirect('/dashboard');
+---
+
+<MainLayout title={environment.name}>
+  <div class="space-y-8">
+    <PageHeader
+      name={environment.name}
+      description={environment.description}
+      showBackButton
+      path={`/dashboard/projects/${projectId}`}
+      buttonText={`Voltar para ${project.name}`}
+    />
+
+    <div class="space-y-4">
+      <h2 class="text-xl font-semibold">Feature Flags</h2>
+      <FlagList client:load projectId={Number(projectId)} environmentId={Number(environmentId)} />
+    </div>
+  </div>
+</MainLayout>

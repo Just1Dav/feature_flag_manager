@@ -1,5 +1,5 @@
 ---
-import { CreateProjectDialog } from '@/components/react/projects/CreateProjectDialog';
+import { CreateResourceDialog } from '@/components/react/resources/CreateResourceDialog';
 import { ProjectList } from '@/components/react/projects/ProjectList';
 import MainLayout from '@/layouts/main.astro';
 ---
@@ -7,12 +7,21 @@ import MainLayout from '@/layouts/main.astro';
 <MainLayout title="Meus Projetos">
   <div class="space-y-8">
     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-      <div class="space-y-1 text-left">
+      <div class="space-y-3 text-left">
         <h1 class="text-2xl font-bold tracking-tight sm:text-3xl">Meus Projetos</h1>
         <p class="text-muted-foreground text-sm sm:text-base">Gerencie seus projetos</p>
       </div>
       <div class="flex shrink-0">
-        <CreateProjectDialog client:load />
+        <CreateResourceDialog
+          resource="projects"
+          dialogTitle="Novo projeto"
+          dialogDescription="Preencha as informações abaixo para criar seu novo projeto"
+          successMessage="Projeto criado com sucesso!"
+          defaultErrorMessage="Ocorreu um erro ao tentar criar o projeto"
+          createButtonText="Novo Projeto"
+          confirmButtonText="Criar Projeto"
+          client:load
+        />
       </div>
     </div>
     <ProjectList client:load />

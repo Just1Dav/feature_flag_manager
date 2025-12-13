@@ -7,5 +7,4 @@ export default [
   },
   eslint.configs.recommended,
   ...eslintPluginAstro.configs.recommended,
-  {},
 ];
