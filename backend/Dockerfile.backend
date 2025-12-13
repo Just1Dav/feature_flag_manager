@@ -8,6 +8,9 @@ RUN npm install
 COPY backend/package.json ./backend/
 RUN cd backend && npm install
 
+COPY backend/prisma ./backend/
+COPY backend/prisma.config.mts ./backend/
+
 COPY backend ./backend
 
 RUN npm run build:backend
