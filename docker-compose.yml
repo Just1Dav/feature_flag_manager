@@ -13,6 +13,19 @@ services:
     networks:
       - feature_flags_network
 
+  # Banco de dados para testes e2e
+  postgres_test:
+    image: postgres:16-alpine
+    container_name: feature_flags_test_db
+    ports:
+      - '5434:5432' # Utilizei a mesma porta para local e para o docker
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: adminpassword
+      POSTGRES_DB: feature_flags_test_db # Nome diferente
+    networks:
+      - feature_flags_network
+
   # 2. SERVIÇO DE BACKEND (NestJS)
   backend:
     build:
