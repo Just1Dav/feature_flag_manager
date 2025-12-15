@@ -16,12 +16,7 @@ logs
 *.sublime-workspace
 .github/
 
-# Variáveis de Ambiente e Segredos
-.env
-.env.*
-!.env.example
-*.pem
-*.key
+# Variáveis de Ambiente e Segredos - serão commitadas para facilitar rodar o teste
 
 # Builds e Distribuição (Backend & Frontend)
 dist/

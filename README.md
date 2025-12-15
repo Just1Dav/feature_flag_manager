@@ -4,40 +4,34 @@ Um **gerenciador de feature flags** que permite ao usuário cadastrar **projetos
 
 Este projeto é estruturado como um **monorepo**, contendo **backend** e **frontend** integrados.
 
----
-
 ## 🧠 Tecnologias
 
-> [!ATENÇÃO]
-> Para executar o projeto sem problemas, principalmente os testes, rodar o node em uma destas versões 20.19+, 22.12+, 24.0+
+> **[ATENÇÃO]**
+> **Para executar o projeto sem problemas, principalmente os testes, rodar o node em uma destas versões 20.19+, 22.12+, 24.0+**
 
 Este projeto é um **monorepo**, dividido da seguinte forma:
 
 ### 🛠 Backend
 
-- NestJS --- Framework progressivo para Node.js
+- NestJS
 
-- Prisma ORM --- ORM moderno para TypeScript
+- Prisma ORM
 
-- PostgreSQL --- Banco de dados relacional
+- PostgreSQL
 
 ### 🖥 Frontend
 
-- AstroJS --- Framework focado em performance
+- AstroJS
 
-- React (Islands) --- Componentes interativos
+- React (Islands)
 
-- shadcn/ui --- Biblioteca de componentes
+- shadcn/ui
 
-- Tailwind CSS --- Estilização utilitária
-
----
+- Tailwind CSS
 
 ## 🎨 Design
 
 O design do frontend foi gerado utilizando a **Lovable AI**, garantindo uma interface moderna e funcional.
-
----
 
 ## 🧹 Padronização e Qualidade de Código
 
@@ -52,15 +46,15 @@ Este projeto utiliza boas práticas de padronização e automação:
 Exemplo de commit\
 (feat(backend): add new feature)
 
----
-
 ## 🚀 Como Rodar o Projeto
 
----
-
-### Configuração inicial
+Os passos abaixo dão conta de como inicializar o projeto
 
 ## 🔐 Configuração de Variáveis de Ambiente
+
+### `Para este projeto os arquivos .env foram commitados com a intenção de facilitar que o projeto seja testado, em um projeto real isso NÃO pode acontecer pois dados sensíveis ficariam expostos`
+
+Em um projeto comum os seguintes passos deveriam ser executados:
 
 Na raiz do projeto, crie um arquivo chamado `.env.backend` com o seguinte conteúdo:
 
@@ -86,8 +80,6 @@ Crie um arquivo `.env.test` na raiz do backend para executar os testes E2E:
 `DATABASE_URL="postgresql://admin:adminpassword@localhost:5434/feature_flags_test_db?schema=public"`<br>
 `SECRET_KEY="secret_sha256"`
 
----
-
 ## 🐳 Rodando com Docker (Recomendado)
 
 ### Subindo os containers
@@ -108,8 +100,6 @@ Isso irá iniciar:
 
 OBS: após a configuração inicial o docker pode ser rodado com docker compose up -d
 
----
-
 ## 💻 Rodando Localmente (Sem Docker)
 
 Para rodar o projeto localmente sem Docker, siga os passos abaixo.
@@ -129,8 +119,6 @@ No frontend:\
 cd frontend\
 npm install
 
----
-
 ## 🛠️ Banco de Dados com Prisma
 
 Caso esteja rodando o projeto localmente ainda vai ser necessário rodar o docker para configurar o banco de dados e o prisma,
@@ -139,8 +127,6 @@ neste caso ainda será necessário executar o generate na sua máquina:
 cd backend\
 npx prisma generate
 npx prisma migrate dev --name init
-
----
 
 ## ▶️ Executando a Aplicação Localmente
 
@@ -154,8 +140,6 @@ npm run start:dev
 A API ficará disponível em:\
 <http://localhost:3000>
 
----
-
 ### Frontend
 
 Para iniciar o frontend em modo de desenvolvimento:
@@ -165,8 +149,6 @@ npm run dev
 
 O frontend ficará disponível em:\
 <http://localhost:4321>
-
----
 
 ## 🧪 Testes do Backend
 
@@ -185,8 +167,6 @@ npm run test:e2e
 
 OBS: É necessário rodar o comando **test:db:setup** para executar a migration no banco de testes.\
 Esse passo é obrigatório na primeira execução e sempre que houver alterações no schema do Prisma.
-
----
 
 ## 📁 Estrutura do Projeto
 
