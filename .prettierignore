@@ -33,3 +33,6 @@ backend/src/generated/**
 
 # Cache
 .astro
+
+# Insomnia
+insomnia_collection.json

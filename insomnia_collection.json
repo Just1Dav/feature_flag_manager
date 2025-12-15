@@ -1,0 +1,627 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: Feature Flags Manager
+meta:
+  id: wrk_ef605568272747b7b242b04c5392d76e
+  created: 1765457763362
+  modified: 1765457763362
+  description: ""
+collection:
+  - name: Auth
+    meta:
+      id: fld_6b9d5f8b2a5b41a2bfe06e2cb61a3ba6
+      created: 1765469747710
+      modified: 1765797709675
+      sortKey: -1765471337069
+      description: ""
+    children:
+      - url: "{{API_URL}}/auth/signup"
+        name: SIGNUP
+        meta:
+          id: req_9f01780ec16040e082e3fbbec11741e8
+          created: 1765469751834
+          modified: 1765797657357
+          isPrivate: false
+          description: ""
+          sortKey: -1765469751835
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "email": "email_teste@gmail.com",
+              "name": "Usuário de Teste",
+            	"password": "123456"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.API_URL }}/auth/signin"
+        name: SIGNIN
+        meta:
+          id: req_a723e21bcb734ce48020f76a7322a287
+          created: 1765469945227
+          modified: 1765797674443
+          isPrivate: false
+          description: ""
+          sortKey: -1765469945227
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "email": "email_teste@gmail.com",
+              "password": "123456"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Projects
+    meta:
+      id: fld_516ebc00adee40bfa82357cdde6ea493
+      created: 1765470065870
+      modified: 1765797712950
+      sortKey: -1765471337019
+      description: ""
+    children:
+      - url: "{{ _.API_URL }}/projects/1"
+        name: GET PROJECT BY ID
+        meta:
+          id: req_a13e9aa8089646d59207118b3fa3e42b
+          created: 1765470068913
+          modified: 1765797756064
+          isPrivate: false
+          description: ""
+          sortKey: -1765470068913
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+          - name: Authorization
+            value: "{{ _.ACCESS_TOKEN }}"
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.API_URL }}/projects"
+        name: GET ALL PROJECTS
+        meta:
+          id: req_81e828b6d7fe4cb48ded1cd2a9531ad1
+          created: 1765470179633
+          modified: 1765797764655
+          isPrivate: false
+          description: ""
+          sortKey: -1765470061182.625
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+          - name: Authorization
+            value: "{{ _.ACCESS_TOKEN }}"
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.API_URL }}/projects"
+        name: CREATE PROJECT
+        meta:
+          id: req_e754cef9f1f3400489953be2d6239548
+          created: 1765470270073
+          modified: 1765797744557
+          isPrivate: false
+          description: ""
+          sortKey: -1765470069013
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"name": "Projeto de teste",
+            	"description": "desc do projeto"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+          - name: Authorization
+            value: "{{ _.ACCESS_TOKEN }}"
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.API_URL }}/projects/1"
+        name: UPDATE PROJECT
+        meta:
+          id: req_27a5f36124a9498c89135a956aba2870
+          created: 1765470361434
+          modified: 1765797776739
+          isPrivate: false
+          description: ""
+          sortKey: -1765470022530.75
+        method: PATCH
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "name": "Projeto de teste",
+              "description": "desc do projeto atualizado"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+          - name: Authorization
+            value: "{{ _.ACCESS_TOKEN }}"
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.API_URL }}/projects/1"
+        name: DELETE PROJECT
+        meta:
+          id: req_94fbe4a023f3410b80439abab26a436d
+          created: 1765470481978
+          modified: 1765797772402
+          isPrivate: false
+          description: ""
+          sortKey: -1765470053452.25
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+          - name: Authorization
+            value: "{{ _.ACCESS_TOKEN }}"
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Environments
+    meta:
+      id: fld_de97b2f7e7284b2297817d28c023e043
+      created: 1765470691288
+      modified: 1765797788121
+      sortKey: -1765471336994
+      description: ""
+    children:
+      - url: "{{ _.API_URL }}/environments/1"
+        name: GET ENVIRONMENT BY ID
+        meta:
+          id: req_7cc0bc16bf3b48cb900d85060bb2a792
+          created: 1765470691293
+          modified: 1765797805495
+          isPrivate: false
+          description: ""
+          sortKey: -1765470068913
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+          - name: Authorization
+            value: "{{ _.ACCESS_TOKEN }}"
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.API_URL }}/environments"
+        name: GET ALL ENVIRONMENTS
+        meta:
+          id: req_14ed74a41d5449e6b42b287ed8b5aafd
+          created: 1765470691297
+          modified: 1765797809065
+          isPrivate: false
+          description: ""
+          sortKey: -1765470061182.625
+        method: GET
+        parameters:
+          - name: projectId
+            value: "1"
+            description: ""
+            disabled: false
+        headers:
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+          - name: Authorization
+            value: "{{ _.ACCESS_TOKEN }}"
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.API_URL }}/environments"
+        name: CREATE ENVIRONMENT
+        meta:
+          id: req_77f7ad4b176b453db0643b004a05ae52
+          created: 1765470691303
+          modified: 1765797797010
+          isPrivate: false
+          description: ""
+          sortKey: -1765470069013
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"name": "PRD",
+            	"description": "desc do ambiente",
+            	"projectId": 1
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+          - name: Authorization
+            value: "{{ _.ACCESS_TOKEN }}"
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.API_URL }}/environments/1"
+        name: UPDATE ENVIRONMENT
+        meta:
+          id: req_91f6f6c6453942daa4e5ebd3d552e65e
+          created: 1765470691305
+          modified: 1765797818223
+          isPrivate: false
+          description: ""
+          sortKey: -1765470022530.75
+        method: PATCH
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"name": "PRD",
+            	"description": "desc do ambiente atualizada"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+          - name: Authorization
+            value: "{{ _.ACCESS_TOKEN }}"
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.API_URL }}/environments/1"
+        name: DELETE ENVIRONMENT
+        meta:
+          id: req_53c9c3e2965f4b13bf4df149dfbc1ea9
+          created: 1765470691310
+          modified: 1765797812401
+          isPrivate: false
+          description: ""
+          sortKey: -1765470053452.25
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+          - name: Authorization
+            value: "{{ _.ACCESS_TOKEN }}"
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Feature Flags
+    meta:
+      id: fld_df7d647868e0471eb5c9bbbd07a007fc
+      created: 1765471336969
+      modified: 1765471336969
+      sortKey: -1765471336969
+      description: ""
+    children:
+      - url: "{{ _.API_URL }}/feature-flags"
+        name: GET ALL FLAGS
+        meta:
+          id: req_0ab64cb543c04a1a98668869416e1487
+          created: 1765471339485
+          modified: 1765595423127
+          isPrivate: false
+          description: ""
+          sortKey: -1765471339485
+        method: GET
+        parameters:
+          - name: environmentId
+            value: "4"
+            description: ""
+            disabled: false
+        headers:
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+          - name: Authorization
+            value: "{{ _.ACCESS_TOKEN }}"
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.API_URL }}/feature-flags"
+        name: CREATE FLAG
+        meta:
+          id: req_ec9abbc91f8f4645a7a73e03c91e1e40
+          created: 1765471462422
+          modified: 1765797834924
+          isPrivate: false
+          description: ""
+          sortKey: -1765473897437
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"name": "flag de teste",
+            	"isActive": true,
+            	"environmentId": 1
+            }
+        parameters:
+          - name: environmentId
+            value: "1"
+            description: ""
+            disabled: true
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+          - name: Authorization
+            value: "{{ _.ACCESS_TOKEN }}"
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.API_URL }}/feature-flags/1"
+        name: GET FLAG BY ID
+        meta:
+          id: req_aa445a0022f648b68bec375bc4a04c65
+          created: 1765473651084
+          modified: 1765797845693
+          isPrivate: false
+          description: ""
+          sortKey: -1765473897387
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+          - name: Authorization
+            value: "{{ _.ACCESS_TOKEN }}"
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.API_URL }}/feature-flags/1"
+        name: UPDATE FLAG
+        meta:
+          id: req_98eed91d1ac945be9c0661962a24a661
+          created: 1765473736907
+          modified: 1765797867642
+          isPrivate: false
+          description: ""
+          sortKey: -1765470386556
+        method: PATCH
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"name": "flag de teste atualizada",
+            	"isActive": false,
+            	"description": "teste"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+          - name: Authorization
+            value: "{{ _.ACCESS_TOKEN }}"
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.API_URL }}/feature-flags/1"
+        name: DELETE FLAG
+        meta:
+          id: req_761d4074251646959cc7a4d685388126
+          created: 1765473874443
+          modified: 1765473877550
+          isPrivate: false
+          description: ""
+          sortKey: -1765470863020.5
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+          - name: Authorization
+            value: "{{ _.ACCESS_TOKEN }}"
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.API_URL }}/feature-flags/project/1"
+        name: GET FLAGS BY PROJECT
+        meta:
+          id: req_78165a2367c94a2b8a87aaeb7265b56d
+          created: 1765473897337
+          modified: 1765797839570
+          isPrivate: false
+          description: ""
+          sortKey: -1765473897337
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+          - name: Authorization
+            value: "{{ _.ACCESS_TOKEN }}"
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_2b48b9a0f6be525786ec10c502e1d5cf564f1ee7
+    created: 1765457763368
+    modified: 1765457763368
+environments:
+  name: Base Environment
+  meta:
+    id: env_2b48b9a0f6be525786ec10c502e1d5cf564f1ee7
+    created: 1765457763365
+    modified: 1765635969395
+    isPrivate: false
+  data:
+    API_URL: http://localhost:3000
+    ACCESS_TOKEN: Bearer
+      eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImlhdCI6MTc2NTU3MDg4MywiZXhwIjoxNzY1NjU3MjgzfQ.6AsnKm1MjClT58hc4N1wgkQ7RuYYTCK_SL_SVf_DEmI
