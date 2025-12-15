@@ -13,6 +13,7 @@ import {
   HttpStatus,
   ParseIntPipe,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { ProjectsService } from './projects.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
@@ -20,6 +21,7 @@ import { ProjectEntity } from './entities/project.entity';
 import { AuthGuard } from '@/auth/auth.guard';
 import { CurrentUserId } from '@/auth/decorators/current-user.decorator';
 
+@ApiTags('Projetos')
 @Controller('projects')
 @UseGuards(AuthGuard)
 export class ProjectsController {

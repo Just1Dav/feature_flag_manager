@@ -1,4 +1,5 @@
 import { EnvironmentEntity } from '@/environments/entities/environment.entity';
+import { ApiHideProperty } from '@nestjs/swagger';
 import { Exclude, Expose, Type } from 'class-transformer';
 
 export class FeatureFlagEntity {
@@ -8,12 +9,15 @@ export class FeatureFlagEntity {
 
   isActive: boolean;
 
+  @ApiHideProperty()
   @Exclude()
   environmentId: number;
 
+  @ApiHideProperty()
   @Exclude()
   createdAt: Date;
 
+  @ApiHideProperty()
   @Exclude()
   updatedAt: Date;
 

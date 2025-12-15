@@ -100,6 +100,12 @@ Isso irá iniciar:
 
 OBS: após a configuração inicial o docker pode ser rodado com docker compose up -d
 
+## 📄 Documentação da API
+
+A documentação da API foi realizada utilizando o plugin do Swagger disponibilizado pelo NestJS, após a configuração dos projetos a documentação poderá ser acessada em:
+
+<http://localhost:3000/docs>
+
 ## 💻 Rodando Localmente (Sem Docker)
 
 Para rodar o projeto localmente sem Docker, siga os passos abaixo.

@@ -14,12 +14,14 @@ import {
   Query,
   ParseIntPipe,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { EnvironmentsService } from './environments.service';
 import { CreateEnvDto } from './dto/create-environment.dto';
 import { UpdateEnvDto } from './dto/update-environment.dto';
 import { AuthGuard } from '@/auth/auth.guard';
 import { EnvironmentEntity } from './entities/environment.entity';
 
+@ApiTags('Ambientes')
 @Controller('environments')
 @UseGuards(AuthGuard)
 export class EnvironmentsController {

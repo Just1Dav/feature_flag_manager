@@ -1,4 +1,4 @@
-import { OmitType, PartialType } from '@nestjs/mapped-types';
+import { OmitType, PartialType } from '@nestjs/swagger';
 import { CreateFeatureFlagDto } from './create-feature-flag.dto';
 import { IsEmpty } from 'class-validator';
 

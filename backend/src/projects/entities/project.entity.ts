@@ -1,3 +1,4 @@
+import { ApiHideProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
 
 /*
@@ -9,12 +10,15 @@ export class ProjectEntity {
   name: string;
   description: string | null;
 
+  @ApiHideProperty()
   @Exclude()
   userId: number;
 
+  @ApiHideProperty()
   @Exclude()
   createdAt: Date;
 
+  @ApiHideProperty()
   @Exclude()
   updatedAt: Date;
 

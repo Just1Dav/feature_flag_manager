@@ -1,3 +1,4 @@
+import { ApiHideProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
 
 export class UserEntity {
@@ -6,6 +7,7 @@ export class UserEntity {
   email: string;
 
   // Exclui a senha ao serializar a entidade
+  @ApiHideProperty()
   @Exclude()
   password: string;
 
