@@ -192,4 +192,16 @@ Esse passo é obrigatório na primeira execução e sempre que houver alteraçõ
 └── package.json        # Scripts globais do monorepo`
 ```
 
----
+## ⬇️ API Collection
+
+Para testar os endpoints, você pode importar a collection completa no Insomnia.
+
+A Collection do Insomnia configurada pode ser acessada pelo link abaixo. Ao utilizar ela lembrar de atualizar a variavél de ambiente do access_token
+
+[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=FeatureFlagManager&uri=https://raw.githubusercontent.com/Just1Dav/feature_flag_manager/refs/heads/main/insomnia_collection.json)
+
+Prefere importar manualmente?
+
+Dica: Clique com o botão direito no botão de download e escolha "Salvar link como..." para baixar o arquivo JSON.
+
+[📥 Baixar Collection do Insomnia (JSON)](./insomnia_collection.json)
