@@ -204,4 +204,4 @@ Prefere importar manualmente?
 
 Dica: Clique com o botão direito no botão de download e escolha "Salvar link como..." para baixar o arquivo JSON.
 
-[📥 Baixar Collection do Insomnia (JSON)](./insomnia_collection.json)
+[📥 Baixar Collection do Insomnia (JSON)](https://raw.githubusercontent.com/Just1Dav/feature_flag_manager/refs/heads/main/insomnia_collection.json)
