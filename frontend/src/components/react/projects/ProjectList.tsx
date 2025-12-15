@@ -26,8 +26,6 @@ export function ProjectList() {
         const data = await response.json();
 
         setProjects(data);
-
-        if (data.lenght > 0) toast.success('Projetos recuperados com sucesso!');
       } catch (error) {
         toast.error(error instanceof Error ? error.message : defaultErrorMessage);
       } finally {

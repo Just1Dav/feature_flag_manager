@@ -42,8 +42,6 @@ export function FlagList({ projectId, environmentId, showFlagByProjects = false 
         const data = await response.json();
 
         setFlags(data);
-
-        if (data.length > 0) toast.success('Feature flags recuperadas com sucesso!');
       } catch (error) {
         toast.error(error instanceof Error ? error.message : defaultErrorMessage);
       } finally {

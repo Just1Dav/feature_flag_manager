@@ -30,8 +30,6 @@ export function EnvironmentList({ projectId }: Props) {
         const data = await response.json();
 
         setEnvironments(data);
-
-        if (data.length > 0) toast.success('Ambientes recuperados com sucesso!');
       } catch (error) {
         toast.error(error instanceof Error ? error.message : defaultErrorMessage);
       } finally {
